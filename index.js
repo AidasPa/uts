@@ -12,10 +12,27 @@ const processCode = (code) => {
   const lines = code.split('\n');
 
   const propertyBag = [];
-  let constructorLine = null;
 
-  // eslint-disable-next-line array-callback-return
+  let constructorLine = null;
+  let className = null;
+  let firstClassReferenceLine = null;
+  let classHash = null;
+
   const transformedCodeArray = lines.map((line, i) => {
+    if(parser.isComment(line)) {
+      return '';
+    }
+    if (new RegExp(className).test(line)) {
+      console.log(line, i);
+      if (firstClassReferenceLine === null) {
+        firstClassReferenceLine = i;
+      }
+      return line;
+    }
+    if (parser.isClassHeader(line)) {
+      className = parser.parseClassName(line);
+      return line;
+    }
     if (parser.isConstructor(line)) {
       constructorLine = i;
       return parser.replaceConstructorName(line, lines, i);
@@ -45,15 +62,37 @@ const processCode = (code) => {
     return line;
   });
 
-  const processedCode = parser.injectBootstrap(parser.injectProperties(
-    transformedCodeArray,
-    propertyBag,
-    constructorLine,
-  ), argv.file);
+  const [newClassHash, processedCode] = parser.injectCompiledClass(
+    parser.injectBootstrap(
+      parser.injectProperties(
+        transformedCodeArray,
+        propertyBag,
+        constructorLine,
+      ),
+    ),
+    firstClassReferenceLine - 1,
+    className,
+  );
+  classHash = newClassHash;
 
-  const compiledJavascript = ts.transpileModule(processedCode.join('\n'), {
-    compilerOptions: { removeComments: false, target: 'es6' },
-  }).outputText;
+  let times = 0;
+  const replacedReferencesToClasses = processedCode.map((line) => {
+    if (new RegExp(className).test(line)) {
+      if (times > 0) {
+        return line.replace(className, `${className}_${classHash}`);
+      }
+      times += 1;
+    }
+
+    return line;
+  });
+
+  const compiledJavascript = ts.transpileModule(
+    replacedReferencesToClasses.join('\n'),
+    {
+      compilerOptions: { removeComments: false, target: 'es6' },
+    },
+  ).outputText;
 
   utils.writeCode(argv.file, compiledJavascript);
 };

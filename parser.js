@@ -1,5 +1,8 @@
+const random = require('randomstring');
+
 const DECORATOR_REGEX = /@(.*?)\((.*?)\)/;
 const CONSTRUCTOR_REGEX = /constructor\(.*?\) .*/;
+const CLASS_HEADER_REGEX = /class (.*?) /;
 
 const buildPropertyMethod = (propertyBag) => {
   const lines = propertyBag.map(
@@ -9,7 +12,25 @@ const buildPropertyMethod = (propertyBag) => {
   return ['properties() {', ...lines, '}'];
 };
 
+const buildCompiledClass = (className) => {
+  const hash = random.generate(6);
+  return [hash, `const ${className} = require('uclass')()(global, ${className})`];
+};
+
 module.exports = {
+  injectCompiledClass(code, line, className) {
+    const [hash, classLine] = buildCompiledClass(className);
+    code.splice(line + 5, 0, classLine);
+    console.log(code);
+    return [hash, code];
+  },
+  replaceClassReferenceToCompiled(className, hash, line) {
+    return line.replace(className, `${className}_${hash}`);
+  },
+  isComment(text) {
+    const trimmed = String(text).trimStart();
+    return trimmed.startsWith('*') || trimmed.startsWith('//') || trimmed.startsWith('/*') || trimmed.startsWith('*/');
+  },
   parseDecorator(decorator) {
     const [, name, decoratorArguments] = decorator.match(DECORATOR_REGEX);
     const splitArguments = decoratorArguments.replace(/ /g, '').split(',');
@@ -21,6 +42,13 @@ module.exports = {
   },
   isConstructor(text) {
     return CONSTRUCTOR_REGEX.test(text);
+  },
+  isClassHeader(text) {
+    return CLASS_HEADER_REGEX.test(text);
+  },
+  parseClassName(header) {
+    const [, name] = header.match(CLASS_HEADER_REGEX);
+    return name;
   },
   parseTypescriptClassField(field) {
     const cleanedUp = field.replace(/ /g, '');
@@ -50,14 +78,19 @@ module.exports = {
 
     return line;
   },
-  injectBootstrap(code, filename) {
-    const target = filename.split('.')[0].split('/');
-    const targetFinalPath = target[target.length - 1];
-
-    code.push(`const bootstrap = require('./bootstrap'); bootstrap('${targetFinalPath}');`);
+  injectBootstrap(code) {
+    code.unshift(`
+      Context.RunFile('aliases.js');\n
+      Context.RunFile('polyfill/unrealengine.js');\n
+      Context.RunFile('polyfill/timers.js');\n
+    `);
     return code;
   },
   injectProperties(code, propertyBag, targetLine) {
+    if (code[targetLine].replace(/ /g, '') !== '') {
+      return this.injectProperties(code, propertyBag, targetLine - 1);
+    }
+
     if (targetLine !== null) {
       code.splice(targetLine - 1, 0, ...buildPropertyMethod(propertyBag));
     }
