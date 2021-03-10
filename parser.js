@@ -6,7 +6,7 @@ const buildPropertyMethod = (propertyBag) => {
     ({ name, type, decoratorArguments }) => `this.${name}/*${decoratorArguments.join('+')}+${type}*/;`,
   );
 
-  return ['properties() {', lines, '}'];
+  return ['properties() {', ...lines, '}'];
 };
 
 module.exports = {

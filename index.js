@@ -52,7 +52,7 @@ const processCode = (code) => {
   ), argv.file);
 
   const compiledJavascript = ts.transpileModule(processedCode.join('\n'), {
-    compilerOptions: { removeComments: false },
+    compilerOptions: { removeComments: false, target: 'es6' },
   }).outputText;
 
   utils.writeCode(argv.file, compiledJavascript);
