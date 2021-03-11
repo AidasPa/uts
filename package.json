@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "camel-case": "^4.1.2",
+    "chokidar": "^3.5.1",
     "colors": "^1.4.0",
     "filewatcher": "^3.0.1",
     "glob": "^7.1.6",

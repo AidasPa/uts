@@ -15,6 +15,16 @@ module.exports = {
   getLastPathPart(path) {
     return path.split('/').pop();
   },
+  getPathDirs(path, shouldShift = false) {
+    const splitPath = path.split('/');
+    splitPath.pop();
+
+    if (shouldShift) {
+      splitPath.shift();
+    }
+
+    return splitPath.join('/');
+  },
   calculateRootPath(path) {
     const matches = path.match(/\//g) || [];
     const len = matches.length;

@@ -20,10 +20,8 @@ module.exports = async (stubName, argArray, filePath) => {
     .replace('__ROOTPATH__', utils.calculateRootPath(finalPath));
 
   try {
-    const splitPath = finalPath.split('/');
-    splitPath.pop();
+    const directory = utils.getPathDirs(finalPath);
 
-    const directory = splitPath.join('/');
     await utils.createDirsRecursive(directory);
     await fs.writeFile(`${finalPath}`, computedStub, 'utf-8');
   } catch (error) {
