@@ -8,7 +8,7 @@ module.exports = {
   watch,
   init: async () => {
     // create typings for decorators
-    make('typings', [], 'typings/_part_3_ue.d.ts');
+    make('typings', [], 'typings/_part_3_ue.d.ts', true);
 
     // make sure to import the file to the base
     try {

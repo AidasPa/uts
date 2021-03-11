@@ -4,10 +4,13 @@ const Quote = require('inspirational-quotes');
 const utils = require('../../utils');
 const cli = require('../cli');
 
-module.exports = async (stubName, argArray, filePath) => {
+module.exports = async (stubName, argArray, filePath, skipSrc = false) => {
   const rawStub = await fs.readFile(`${__dirname}/${stubName}.stub`, 'utf-8');
 
-  const finalPath = `src/${filePath}`;
+  let finalPath = `src/${filePath}`;
+  if (skipSrc) {
+    finalPath = filePath;
+  }
 
   let computedStub = rawStub;
   argArray.forEach(([key, value]) => {
