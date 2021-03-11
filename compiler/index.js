@@ -1,5 +1,5 @@
-const ts = require('typescript');
 const parser = require('./parser');
+const typescript = require('./typescript');
 
 module.exports = (code) => {
   const lines = code.split('\n');
@@ -92,12 +92,7 @@ module.exports = (code) => {
     return line;
   });
 
-  const compiledJavascript = ts.transpileModule(
-    replacedClassReferencesAndSuperCall.join('\n'),
-    {
-      compilerOptions: { removeComments: false, target: 'es6', module: 'commonjs' },
-    },
-  ).outputText;
+  const compiledJavascript = typescript(replacedClassReferencesAndSuperCall.join('\n'));
 
   return compiledJavascript;
 };

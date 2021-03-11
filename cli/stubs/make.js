@@ -11,7 +11,7 @@ module.exports = async (stubName, argArray, filePath) => {
   });
 
   try {
-    await fs.writeFile(`./${filePath}.ts`, computedStub, 'utf-8');
+    await fs.writeFile(`./${filePath}`, computedStub, 'utf-8');
   } catch (error) {
     console.log(colors.red(`Did you run ${colors.bold.white('uts init')}?`));
   }
