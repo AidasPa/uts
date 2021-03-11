@@ -31,7 +31,7 @@ This command will generate some additional typing files to support the decorator
 
 ---
 
-### Creating `.uts` classes :pencil2  :
+### Creating `.uts` classes :pencil2:
 Whenever you want to generate a `.uts` file you can run one of the following:
 
 > `uts create:actor {ClassName}`
