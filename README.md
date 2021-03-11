@@ -4,6 +4,9 @@
 
 https://www.npmjs.com/package/@aidaspa/uts
 
+## Installation :mailbox:
+`npm i -g @aidaspa/uts`
+
 ## Why :question:
 This package was built in order to help ease the development with UnrealJS - no weird class compilations, full typescript support, custom extension to support decorations (or the so called "macros") and a CLI tool to generate some boilerplate.
 
