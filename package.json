@@ -1,12 +1,15 @@
 {
   "name": "@aidaspa/uts",
   "version": "0.10.0",
-  "description": "",
+  "description": "UnrealJS + TypeScript Toolkit",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "bin": {
+    "uts": "index.js"
+  },
+  "author": "Aidas P",
   "license": "ISC",
   "devDependencies": {
     "eslint": "^7.21.0",
