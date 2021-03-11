@@ -3,6 +3,13 @@
   "version": "0.11.2",
   "description": "UnrealJS + TypeScript Toolkit",
   "main": "index.js",
+  "keywords": [
+    "typescript",
+    "unreal engine",
+    "javascript",
+    "unrealjs",
+    "toolkit"
+  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
