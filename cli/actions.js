@@ -1,5 +1,6 @@
-const colors = require('colors');
+const fs = require('fs').promises;
 const watch = require('./actions/watch');
+const cli = require('./cli');
 
 const make = require('./stubs/make');
 
@@ -24,12 +25,13 @@ module.exports = {
       splitTypingFile.splice(injectionTarget, 0, ...['/// <reference path="_part_3_ue.d.ts">/>']);
       await fs.writeFile('typings/ue.d.ts', splitTypingFile.join('\n'), 'utf-8');
 
-      console.log(colors.green('UTS project initialized!'));
+      cli.utsInitialized();
     } catch (error) {
-      console.log(colors.yellow('Are you sure this is an Unreal.JS project?'));
+      cli.warning('Are you sure this is an UnrealJS project?\n\nDid you setup UnrealJS in your project\'s plugins?');
     }
   },
   'create:actor': async (className) => {
     make('actor', [['CLASSNAME', className]], `${className}.uts`);
+    cli.actorCreated(`${className}.uts`);
   },
 };

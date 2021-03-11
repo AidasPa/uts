@@ -5,6 +5,8 @@ class __CLASSNAME__ extends Actor
 {
 
   /**
+   * __QUOTE__
+   *
    * __CLASSNAME__'s Constructor
    */
   constructor(GWorld: World) {
