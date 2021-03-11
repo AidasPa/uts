@@ -16,9 +16,9 @@ This package was built in order to help ease the development with UnrealJS - no 
 - [x] `.uts` file extension
 - [x] File Watcher
 - [x] CLI
-- [] `@UFUNCTION` Support
-- [] **vscode** extension
-- [] ?
+- [ ] `@UFUNCTION` Support
+- [ ] **vscode** extension
+- [ ] ?
 
 ## The CLI :computer:
 
