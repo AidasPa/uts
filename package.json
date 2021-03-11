@@ -1,11 +1,8 @@
 {
-  "name": "uts",
-  "version": "1.0.0",
+  "name": "@aidaspa/uts",
+  "version": "0.10.0",
   "description": "",
   "main": "index.js",
-  "directories": {
-    "example": "examples"
-  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
