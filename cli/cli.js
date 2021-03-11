@@ -33,7 +33,7 @@ function actorCreated(name) {
   console.log(`
 ${header('ACTOR CREATED')}
 
-${colors.green('CLASS: ')} ${colors.white(name)}
+${colors.green('CLASS: ')} ${colors.white(`src/${name}`)}
 ${logoFormat()}
 ${note()}`);
 }

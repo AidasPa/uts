@@ -1,7 +1,7 @@
 const fs = require('fs').promises;
 const watch = require('./actions/watch');
 const cli = require('./cli');
-
+const utils = require('../utils');
 const make = require('./stubs/make');
 
 module.exports = {
@@ -31,7 +31,7 @@ module.exports = {
     }
   },
   'create:actor': async (className) => {
-    make('actor', [['CLASSNAME', className]], `${className}.uts`);
+    make('actor', [['CLASSNAME', utils.getLastPathPart(className)]], `${className}.uts`);
     cli.actorCreated(`${className}.uts`);
   },
 };

@@ -1,4 +1,4 @@
-/// <reference path="typings/ue.d.ts">/>
+/// <reference path="__ROOTPATH__typings/ue.d.ts">/>
 
 @UCLASS()
 class __CLASSNAME__ extends Actor
