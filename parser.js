@@ -20,8 +20,7 @@ const buildCompiledClass = (className) => {
 module.exports = {
   injectCompiledClass(code, line, className) {
     const [hash, classLine] = buildCompiledClass(className);
-    code.splice(line + 5, 0, classLine);
-    console.log(code);
+    code.splice(line + 4, 0, ...[null, classLine]);
     return [hash, code];
   },
   replaceClassReferenceToCompiled(className, hash, line) {
@@ -54,7 +53,11 @@ module.exports = {
     const cleanedUp = field.replace(/ /g, '');
 
     const [name, type] = cleanedUp.split(':');
-    const cleanType = type.replace(';', '');
+    let cleanType = type.replace(';', '');
+
+    if (cleanType === 'number') {
+      cleanType = 'int';
+    }
 
     return [name, cleanType];
   },
@@ -73,10 +76,10 @@ module.exports = {
     }
 
     if (shouldReplace) {
-      return line.replace('constructor', 'ctor');
+      return ['ctor() {', shouldReplace];
     }
 
-    return line;
+    return [line, shouldReplace];
   },
   injectBootstrap(code) {
     code.unshift(`

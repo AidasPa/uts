@@ -17,9 +17,10 @@ const processCode = (code) => {
   let className = null;
   let firstClassReferenceLine = null;
   let classHash = null;
+  let replaceSuper = false;
 
   const transformedCodeArray = lines.map((line, i) => {
-    if(parser.isComment(line)) {
+    if (parser.isComment(line)) {
       return '';
     }
     if (new RegExp(className).test(line)) {
@@ -35,7 +36,15 @@ const processCode = (code) => {
     }
     if (parser.isConstructor(line)) {
       constructorLine = i;
-      return parser.replaceConstructorName(line, lines, i);
+      const [replaced, didReplace] = parser.replaceConstructorName(
+        line,
+        lines,
+        i,
+      );
+      if (didReplace) {
+        replaceSuper = true;
+      }
+      return replaced;
     }
     if (parser.isDecorator(line)) {
       const [decorator, decoratorArguments] = parser.parseDecorator(line);
@@ -76,21 +85,25 @@ const processCode = (code) => {
   classHash = newClassHash;
 
   let times = 0;
-  const replacedReferencesToClasses = processedCode.map((line) => {
+  const replacedClassReferencesAndSuperCall = processedCode.map((line) => {
     if (new RegExp(className).test(line)) {
-      if (times > 0) {
+      if (times > 0 && !line.startsWith('export')) {
         return line.replace(className, `${className}_${classHash}`);
       }
       times += 1;
+    }
+
+    if (/super\(.*\)/.test(line) && replaceSuper) {
+      return '';
     }
 
     return line;
   });
 
   const compiledJavascript = ts.transpileModule(
-    replacedReferencesToClasses.join('\n'),
+    replacedClassReferencesAndSuperCall.join('\n'),
     {
-      compilerOptions: { removeComments: false, target: 'es6' },
+      compilerOptions: { removeComments: false, target: 'es6', module: 'commonjs' },
     },
   ).outputText;
 
