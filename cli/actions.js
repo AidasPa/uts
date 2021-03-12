@@ -8,7 +8,7 @@ module.exports = {
   watch,
   init,
   'create:actor': async (className) => {
-    make('actor', [['CLASSNAME', utils.getLastPathPart(className)]], `${className}.uts`);
-    cli.actorCreated(`${className}.uts`);
+    make('actor', [['CLASSNAME', utils.getLastPathPart(className)]], `${className}.u.ts`);
+    cli.actorCreated(`${className}.u.ts`);
   },
 };

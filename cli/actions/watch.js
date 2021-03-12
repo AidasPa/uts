@@ -6,14 +6,6 @@ const typescript = require('../../compiler/typescript');
 const utils = require('../../utils');
 
 module.exports = () => {
-  // glob('src/**/*.ts', (err, matches) => {
-  //   matches.forEach((match) => typescriptWatcher.add(match));
-  // });
-
-  // glob('src/**/*.uts', (err, matches) => {
-  //   matches.forEach((match) => watcher.add(match));
-  // });
-
   cli.tsWatcherInit();
   cli.utsWatcherInit();
   console.log('-----------------------------------------------');
@@ -39,7 +31,7 @@ module.exports = () => {
       let compiled;
 
       try {
-        if (fileType === 'uts') {
+        if (fileType === 'u') {
           cli.utsCompiling(`${file}`);
           compiled = compiler(code);
         } else if (fileType === 'ts') {
