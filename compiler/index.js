@@ -113,7 +113,8 @@ module.exports = (code) => {
 
   let times = 0;
   const replacedClassReferencesAndSuperCall = processedCode.map((line) => {
-    if (new RegExp(className).test(line)) {
+    if (new RegExp(className).test(line) && (!line.replace(/ /g, '').startsWith('class') || !line.replace(/ /g, '').startsWith('abstract'))) {
+      console.log(line);
       if (times > 0) {
         return line.replace(className, `${className}_${classHash}`);
       }

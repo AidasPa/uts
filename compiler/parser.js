@@ -2,7 +2,7 @@ const random = require('randomstring');
 
 const DECORATOR_REGEX = /@(.*?)\((.*?)\)/;
 const CONSTRUCTOR_REGEX = /constructor\(.*?\) .*/;
-const CLASS_HEADER_REGEX = /class (.*?) /;
+const CLASS_HEADER_REGEX = /.*?class (.*?) /;
 const UTS_REQUIRE_REGEX = /import .*? from (?:'|")(.*)\.u(?:'|")/;
 
 const buildPropertyMethod = (propertyBag) => {
@@ -116,6 +116,11 @@ module.exports = {
 
     const [name, type] = cleanedUp.split(':');
     let cleanType = type.replace(';', '');
+
+    if (/=/.test(cleanType)) {
+      // eslint-disable-next-line prefer-destructuring
+      cleanType = cleanType.split('=')[0];
+    }
 
     if (cleanType === 'number') {
       cleanType = 'int';
