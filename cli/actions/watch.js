@@ -17,6 +17,7 @@ module.exports = () => {
   cli.tsWatcherInit();
   cli.utsWatcherInit();
   console.log('-----------------------------------------------');
+  // eslint-disable-next-line consistent-return
   chokidar.watch('src').on('all', async (event, path) => {
     const file = path.replace(/\\/g, '/');
 
@@ -37,12 +38,16 @@ module.exports = () => {
 
       let compiled;
 
-      if (fileType === 'uts') {
-        cli.utsCompiling(`${file}`);
-        compiled = compiler(code);
-      } else if (fileType === 'ts') {
-        cli.tsCompiling(file);
-        compiled = typescript(code);
+      try {
+        if (fileType === 'uts') {
+          cli.utsCompiling(`${file}`);
+          compiled = compiler(code);
+        } else if (fileType === 'ts') {
+          cli.tsCompiling(file);
+          compiled = typescript(code);
+        }
+      } catch (error) {
+        cli.error(`There were errors when compiling ${file}`);
       }
 
       await utils.writeCode(

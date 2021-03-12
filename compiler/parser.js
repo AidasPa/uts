@@ -20,7 +20,7 @@ const buildCompiledClass = (className) => {
 module.exports = {
   injectCompiledClass(code, line, className) {
     const [hash, classLine] = buildCompiledClass(className);
-    code.splice(line + 4, 0, ...[null, classLine]);
+    code.splice(line + 5, 0, ...[null, classLine]);
     return [hash, code];
   },
   replaceClassReferenceToCompiled(className, hash, line) {

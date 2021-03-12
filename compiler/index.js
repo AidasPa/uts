@@ -71,7 +71,7 @@ module.exports = (code) => {
         constructorLine,
       ),
     ),
-    firstClassReferenceLine - 1,
+    firstClassReferenceLine + 1,
     className,
   );
   classHash = newClassHash;

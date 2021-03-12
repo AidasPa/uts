@@ -13,7 +13,7 @@ if (argv.file) {
   (async () => {
     const code = await utils.readCode(argv.file);
     const compiled = compiler(code);
-    utils.writeCode(argv.file, compiled);
+    console.log(compiled);
   })();
 } else {
   cli(argv._);
