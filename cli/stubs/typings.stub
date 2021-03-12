@@ -1,8 +1,17 @@
 type UPROPERTYParam = null;
+type KEYBINDParam = 0 | 1;
 
 declare const EditAnywhere: UPROPERTYParam = null;
-declare const VisibleAnywhereL UPROPERTYParam = null;
+declare const VisibleAnywhere: UPROPERTYParam = null;
+
+declare const BindAxis: KEYBINDParam = 0;
+declare const BindAction: KEYBINDParam = 1;
+declare const IE_PRESSED: KEYBINDParam = 0;
+declare const IE_RELEASED: KEYBINDParam = 1;
 
 declare const UCLASS = (): Function => (): void => {};
 declare const UPROPERTY = (...args: UPROPERTYParam[]): Function => (): void => {};
 declare const UFUNCTION = (...args: UPROPERTYParam[]): Function => (): void => {};
+declare const KEYBIND = (type: KEYBINDParam, action: string, event: ?KEYBINDParam = 0): Function => (): void => {};
+
+declare type float = number;
