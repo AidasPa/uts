@@ -3,6 +3,7 @@ const random = require('randomstring');
 const DECORATOR_REGEX = /@(.*?)\((.*?)\)/;
 const CONSTRUCTOR_REGEX = /constructor\(.*?\) .*/;
 const CLASS_HEADER_REGEX = /class (.*?) /;
+const UTS_REQUIRE_REGEX = /import .*? from (?:'|")(.*)\.u(?:'|")/;
 
 const buildPropertyMethod = (propertyBag) => {
   const lines = propertyBag.map(
@@ -20,7 +21,7 @@ const buildCompiledClass = (className) => {
 module.exports = {
   injectCompiledClass(code, line, className) {
     const [hash, classLine] = buildCompiledClass(className);
-    code.splice(line + 4, 0, ...[null, classLine]);
+    code.splice(line + 3, 0, ...[null, classLine]);
     return [hash, code];
   },
   replaceClassReferenceToCompiled(className, hash, line) {
@@ -35,6 +36,12 @@ module.exports = {
     const splitArguments = decoratorArguments.replace(/ /g, '').split(',');
 
     return [name, splitArguments];
+  },
+  convertRequire(line) {
+    return line.replace('.u', '');
+  },
+  isUtsRequire(text) {
+    return UTS_REQUIRE_REGEX.test(text);
   },
   isDecorator(text) {
     return DECORATOR_REGEX.test(text);

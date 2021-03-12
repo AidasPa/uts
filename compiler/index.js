@@ -13,11 +13,15 @@ module.exports = (code) => {
   let replaceSuper = false;
 
   const transformedCodeArray = lines.map((line, i) => {
+    if (parser.isUtsRequire(line)) {
+      return parser.convertRequire(line);
+    }
     if (parser.isComment(line)) {
       return '';
     }
-    if (new RegExp(className).test(line)) {
+    if (new RegExp(`new ${className}`).test(line) || new RegExp(`export .*? ${className}`).test(line)) {
       if (firstClassReferenceLine === null) {
+        console.log(i);
         firstClassReferenceLine = i - 1;
       }
       return line;
@@ -79,7 +83,7 @@ module.exports = (code) => {
   let times = 0;
   const replacedClassReferencesAndSuperCall = processedCode.map((line) => {
     if (new RegExp(className).test(line)) {
-      if (times > 0 && !line.startsWith('export')) {
+      if (times > 0) {
         return line.replace(className, `${className}_${classHash}`);
       }
       times += 1;
