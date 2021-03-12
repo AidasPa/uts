@@ -24,7 +24,8 @@ This package was built in order to help ease the development with UnrealJS - no 
 - [x] CLI
 - [ ] `@UFUNCTION` Support
 - [ ] **vscode** extension
-- [ ] ?
+- [ ] Use Babel to compile `.uts`
+- [ ] CLI Template generation (third person, first person etc..)
 
 ## The CLI :computer:
 
