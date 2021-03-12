@@ -29,6 +29,7 @@
     "filewatcher": "^3.0.1",
     "glob": "^7.1.6",
     "inspirational-quotes": "^1.0.8",
+    "listr": "^0.14.3",
     "node-emoji": "^1.10.0",
     "randomstring": "^1.1.5",
     "typescript": "^4.2.3",
