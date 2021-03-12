@@ -61,6 +61,8 @@ module.exports = async () => {
     },
   ]);
 
+  await make('.gitignore', [], '.gitignore', true);
+
   await tasks.run();
   cli.utsInitialized();
 };

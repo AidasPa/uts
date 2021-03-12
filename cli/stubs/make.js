@@ -25,10 +25,11 @@ module.exports = async (stubName, argArray, filePath, skipSrc = false) => {
   try {
     const directory = utils.getPathDirs(finalPath);
 
-    await utils.createDirsRecursive(directory);
+    if (directory !== '') {
+      await utils.createDirsRecursive(directory);
+    }
     await fs.writeFile(`${finalPath}`, computedStub, 'utf-8');
   } catch (error) {
-    console.log(error);
     cli.error(`Did you run ${colors.bold.white('uts init')}?`);
   }
 };
