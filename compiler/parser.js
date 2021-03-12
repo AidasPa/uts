@@ -17,7 +17,7 @@ const buildCompiledClass = (className) => {
   const hash = random.generate(6);
   return [
     hash,
-    `const ${className} = require('uclass')()(global, ${className})`,
+    `const ${className}_${hash} = require('uclass')()(global, ${className})`,
   ];
 };
 

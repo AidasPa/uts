@@ -111,14 +111,14 @@ module.exports = (code) => {
   );
   classHash = newClassHash;
 
-  let times = 0;
+  // let times = 0;
   const replacedClassReferencesAndSuperCall = processedCode.map((line) => {
     if (new RegExp(className).test(line) && (/new/.test(line) || /export/.test(line))) {
       console.log(line);
-      if (times > 0) {
+      // if (times > 0) {
         return line.replace(className, `${className}_${classHash}`);
-      }
-      times += 1;
+      // }
+      // times += 1;
     }
 
     if (/super\(.*\)/.test(line) && replaceSuper) {
