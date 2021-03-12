@@ -1,6 +1,6 @@
 {
   "name": "@aidaspa/uts",
-  "version": "0.12.3",
+  "version": "0.13.3",
   "description": "UnrealJS + TypeScript Toolkit",
   "main": "index.js",
   "keywords": [
@@ -22,18 +22,14 @@
     "eslint-plugin-import": "^2.22.1"
   },
   "dependencies": {
-    "camel-case": "^4.1.2",
     "chokidar": "^3.5.1",
     "colors": "^1.4.0",
     "execa": "^5.0.0",
-    "filewatcher": "^3.0.1",
-    "glob": "^7.1.6",
     "inspirational-quotes": "^1.0.8",
     "listr": "^0.14.3",
     "node-emoji": "^1.10.0",
     "randomstring": "^1.1.5",
     "typescript": "^4.2.3",
-    "typescript-compiler": "^1.4.1-2",
     "yargs": "^16.2.0"
   }
 }
