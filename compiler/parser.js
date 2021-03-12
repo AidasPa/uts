@@ -21,6 +21,7 @@ module.exports = {
   injectCompiledClass(code, line, className) {
     const [hash, classLine] = buildCompiledClass(className);
     code.splice(line + 4, 0, ...[null, classLine]);
+    console.log(code);
     return [hash, code];
   },
   replaceClassReferenceToCompiled(className, hash, line) {
@@ -82,11 +83,7 @@ module.exports = {
     return [line, shouldReplace];
   },
   injectBootstrap(code) {
-    code.unshift(`
-      Context.RunFile('aliases.js');\n
-      Context.RunFile('polyfill/unrealengine.js');\n
-      Context.RunFile('polyfill/timers.js');\n
-    `);
+    code.unshift('Context.RunFile(\'aliases.js\');Context.RunFile(\'polyfill/unrealengine.js\');Context.RunFile(\'polyfill/timers.js\');');
     return code;
   },
   injectProperties(code, propertyBag, targetLine) {

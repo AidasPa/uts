@@ -18,7 +18,7 @@ module.exports = (code) => {
     }
     if (new RegExp(className).test(line)) {
       if (firstClassReferenceLine === null) {
-        firstClassReferenceLine = i;
+        firstClassReferenceLine = i - 1;
       }
       return line;
     }
