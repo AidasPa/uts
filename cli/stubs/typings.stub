@@ -1,6 +1,7 @@
 type UPROPERTYParam = null;
 
 declare const EditAnywhere: UPROPERTYParam = null;
+declare const VisibleAnywhereL UPROPERTYParam = null;
 
 declare const UCLASS = (): Function => (): void => {};
 declare const UPROPERTY = (...args: UPROPERTYParam[]): Function => (): void => {};

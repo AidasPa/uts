@@ -14,4 +14,4 @@ class __CLASSNAME__ extends Actor
   }
 }
 
-module.exports = __CLASSNAME__;
+export = __CLASSNAME__;
