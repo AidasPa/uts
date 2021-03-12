@@ -5,6 +5,7 @@ module.exports = (code) => {
   const lines = code.split('\n');
 
   const propertyBag = [];
+  const thingsToReplaceAfterTypescript = [];
 
   let constructorLine = null;
   let className = null;
@@ -12,16 +13,32 @@ module.exports = (code) => {
   let classHash = null;
   let replaceSuper = false;
 
+  let keybindConfiguration = null;
+  let keybindMethodLine = null;
+
   const transformedCodeArray = lines.map((line, i) => {
+    if (i === keybindMethodLine) {
+      keybindMethodLine = null;
+      const [result, whatToReplaceAfterTypescript] = parser.formatKeybindMethod(
+        line,
+        keybindConfiguration,
+      );
+
+      thingsToReplaceAfterTypescript.push(whatToReplaceAfterTypescript);
+
+      return result;
+    }
     if (parser.isUtsRequire(line)) {
       return parser.convertRequire(line);
     }
     if (parser.isComment(line)) {
       return '';
     }
-    if (new RegExp(`new ${className}`).test(line) || new RegExp(`export .*? ${className}`).test(line)) {
+    if (
+      new RegExp(`new ${className}`).test(line)
+      || new RegExp(`export .*? ${className}`).test(line)
+    ) {
       if (firstClassReferenceLine === null) {
-        console.log(i);
         firstClassReferenceLine = i - 1;
       }
       return line;
@@ -45,6 +62,20 @@ module.exports = (code) => {
     if (parser.isDecorator(line)) {
       const [decorator, decoratorArguments] = parser.parseDecorator(line);
       if (decorator === 'UCLASS') {
+        return '';
+      }
+      if (decorator === 'KEYBIND') {
+        keybindMethodLine = i + 1;
+
+        // check to what method are we assigning the keybind to
+        const nextLine = lines[i + 1];
+        const [methodName, args] = parser.parseTypescriptMethod(nextLine);
+        keybindConfiguration = {
+          method: methodName,
+          args,
+          line: i + 1,
+          decoratorArguments,
+        };
         return '';
       }
       if (decorator === 'UPROPERTY') {
@@ -96,7 +127,28 @@ module.exports = (code) => {
     return line;
   });
 
-  const compiledJavascript = typescript(replacedClassReferencesAndSuperCall.join('\n'));
+  const compiledJavascript = typescript(
+    replacedClassReferencesAndSuperCall.join('\n'),
+  );
 
-  return compiledJavascript.replace('Object.defineProperty(exports, "__esModule", { value: true });', '');
+  const replacedJavascript = compiledJavascript.split('\n').map((line) => {
+    const noSpaces = line.replace(/ /g, '').replace(/\r/g, '');
+
+    let result = line;
+
+    // eslint-disable-next-line consistent-return
+    thingsToReplaceAfterTypescript.forEach(([target, replacement]) => {
+      if (target === noSpaces) {
+        // eslint-disable-next-line no-return-assign
+        return result = replacement;
+      }
+    });
+
+    return result;
+  }).join('\n');
+
+  return replacedJavascript.replace(
+    'Object.defineProperty(exports, "__esModule", { value: true });',
+    '',
+  );
 };
