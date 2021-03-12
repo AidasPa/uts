@@ -15,7 +15,7 @@ module.exports = () => {
 
     const target = `out/${utils.getPathDirs(file, true)}`;
 
-    if (file.split('.')[1] === 'uts' || file.split('.')[1] === 'ts') {
+    if (file.split('.')[1] === 'u' || file.split('.')[1] === 'ts') {
       if (event === 'unlink') {
         return fs.unlink(`${target}/${utils.getLastPathPart(file.split('.')[0])}.js`);
       }

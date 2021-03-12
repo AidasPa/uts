@@ -54,7 +54,7 @@ ${attentionHeader('bgRed')} ${colors.red(text)}
 
 function utsWatcherInit() {
   console.log(`
-${colors.bgMagenta('UTS Watcher')} Watching ${colors.bold.italic('.uts')} files
+${colors.bgMagenta('UTS Watcher')} Watching ${colors.bold.italic('.u.ts')} files
   `);
 }
 

@@ -46,11 +46,17 @@ module.exports = async () => {
     {
       title: 'Install package dependencies with Yarn',
       task: (ctx, task) => execa('yarn add @types/node')
-        .catch((err) => {
+        .catch(() => {
           ctx.yarn = false;
-          console.log(err);
 
           task.skip('Yarn not available, install it via `npm install -g yarn`');
+        }),
+    },
+    {
+      title: 'Initialize typescript configuration',
+      task: (ctx) => execa('npx tsc --init -experimentalDecorators true --target es6')
+        .catch(() => {
+          ctx.tsc = false;
         }),
     },
   ]);
