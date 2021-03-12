@@ -98,5 +98,5 @@ module.exports = (code) => {
 
   const compiledJavascript = typescript(replacedClassReferencesAndSuperCall.join('\n'));
 
-  return compiledJavascript;
+  return compiledJavascript.replace('Object.defineProperty(exports, "__esModule", { value: true });', '');
 };
