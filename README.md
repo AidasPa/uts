@@ -59,14 +59,6 @@ This will watch all `.ts` and `.u.ts` files under `src/` and compile them to `ou
 - `@KEYBIND(type: BindAction, action: string, event: IE_RELEASED | IE_PRESSED)`
 - `@UFUNCTION` TODO ...
 
-## Caveats :poop:
-
-Sadly, there are a *few* caveats when writing code using this toolkit (nothing that can't be worked on in the future).
-
-1. In order for intellisense to work, you need to set the `.u.ts` file extension be treated as `.ts` You can do this on **vscode** by configuring the file association for `.u.ts` files.
-2. Because of #2, **vscode** bugs out and doesn't read the `tsconfig.json` file which enables `experimentalDecorators`. You also can't ignore specific decorator lines because a decorator **must** be above a declaration. One workaraound is simply livin with some squiggly lines or adding a `// @ts-nocheck` ( :neutral_face: ) at the top. 
-3. ONLY ONE CLASS PER `.u.ts`. Use `commonjs` modules for inheritance.
-
 ## Support, Feedback and Contributions :heart:
 Having an issue? Feel free to open one here.  
 Want to contribute? PRs are always welcome no matter how big.
