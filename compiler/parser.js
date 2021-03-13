@@ -22,15 +22,45 @@ const buildCompiledClass = (className) => {
 };
 
 module.exports = {
+  formatUFunctionMethod(line, configuration) {
+    const noSpaces = line.replace(/ /g, '');
+    let result = noSpaces;
+
+    configuration.args.forEach((arg) => {
+      if (arg.name !== '') {
+        result = result.replace(
+          `${arg.name}:${arg.type}`,
+          `${arg.name} /*${arg.type}*/`,
+        );
+      }
+    });
+
+    const rpcArguments = configuration.decoratorArguments.reduce(
+      (acc, arg) => (acc === '' ? `${arg}` : `${acc}+${arg}`),
+      '',
+    );
+
+    const replaceWhat = result.replace(/ /g, '');
+    result = result.replace(')', `) /*${rpcArguments}*/`);
+
+    return [result, [replaceWhat, result]];
+  },
   formatKeybindMethod(line, configuration) {
     const noSpaces = line.replace(/ /g, '');
     let result;
 
     configuration.args.forEach((arg) => {
-      result = noSpaces.replace(`${arg.name}:${arg.type}`, `${arg.name} /*${arg.type}*/`);
+      result = noSpaces.replace(
+        `${arg.name}:${arg.type}`,
+        `${arg.name} /*${arg.type}*/`,
+      );
     });
 
-    const [bindWhat, methodName, event = false] = configuration.decoratorArguments;
+    const [
+      bindWhat,
+      methodName,
+      event = false,
+    ] = configuration.decoratorArguments;
 
     let bindType;
     if (bindWhat === 'BindAxis') {
@@ -49,7 +79,10 @@ module.exports = {
     const cleanMethodName = methodName.replace(/'/g, '').replace(/"/g, '');
 
     const replaceWhat = result.replace(/ /g, '');
-    result = result.replace(')', `) /*${bindType}[${cleanMethodName}, ${additionalArguments}]*/`);
+    result = result.replace(
+      ')',
+      `) /*${bindType}[${cleanMethodName}, ${additionalArguments}]*/`,
+    );
 
     return [result, [replaceWhat, result]];
   },

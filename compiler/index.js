@@ -5,6 +5,7 @@ module.exports = (code) => {
   const lines = code.split('\n');
 
   const propertyBag = [];
+  // because TS removes comments where it shouldn't and UnrealJS needs them
   const thingsToReplaceAfterTypescript = [];
 
   let constructorLine = null;
@@ -16,7 +17,20 @@ module.exports = (code) => {
   let keybindConfiguration = null;
   let keybindMethodLine = null;
 
+  let uFunctionConfiguration = null;
+  let uFunctionMethodLine = null;
+
   const transformedCodeArray = lines.map((line, i) => {
+    if (i === uFunctionMethodLine) {
+      uFunctionMethodLine = null;
+      const [
+        result,
+        whatToReplaceAfterTypescript,
+      ] = parser.formatUFunctionMethod(line, uFunctionConfiguration);
+
+      thingsToReplaceAfterTypescript.push(whatToReplaceAfterTypescript);
+      return result;
+    }
     if (i === keybindMethodLine) {
       keybindMethodLine = null;
       const [result, whatToReplaceAfterTypescript] = parser.formatKeybindMethod(
@@ -36,7 +50,7 @@ module.exports = (code) => {
     }
     if (
       new RegExp(`new ${className}`).test(line)
-      || new RegExp(`export .*? ${className}`).test(line)
+      || new RegExp(`export.*?${className}`).test(line)
     ) {
       if (firstClassReferenceLine === null) {
         firstClassReferenceLine = i - 1;
@@ -62,6 +76,21 @@ module.exports = (code) => {
     if (parser.isDecorator(line)) {
       const [decorator, decoratorArguments] = parser.parseDecorator(line);
       if (decorator === 'UCLASS') {
+        return '';
+      }
+      if (decorator === 'UFUNCTION') {
+        uFunctionMethodLine = i + 1;
+
+        // check what method are we ufunction-ing
+        const nextLine = lines[i + 1];
+        const [methodName, args] = parser.parseTypescriptMethod(nextLine);
+        uFunctionConfiguration = {
+          method: methodName,
+          args,
+          line: i + 1,
+          decoratorArguments,
+        };
+
         return '';
       }
       if (decorator === 'KEYBIND') {
@@ -111,14 +140,12 @@ module.exports = (code) => {
   );
   classHash = newClassHash;
 
-  // let times = 0;
   const replacedClassReferencesAndSuperCall = processedCode.map((line) => {
-    if (new RegExp(className).test(line) && (/new/.test(line) || /export/.test(line))) {
-      console.log(line);
-      // if (times > 0) {
-        return line.replace(className, `${className}_${classHash}`);
-      // }
-      // times += 1;
+    if (
+      new RegExp(className).test(line)
+      && (/new/.test(line) || /export/.test(line))
+    ) {
+      return line.replace(className, `${className}_${classHash}`);
     }
 
     if (/super\(.*\)/.test(line) && replaceSuper) {
@@ -132,21 +159,25 @@ module.exports = (code) => {
     replacedClassReferencesAndSuperCall.join('\n'),
   );
 
-  const replacedJavascript = compiledJavascript.split('\n').map((line) => {
-    const noSpaces = line.replace(/ /g, '').replace(/\r/g, '');
+  const replacedJavascript = compiledJavascript
+    .split('\n')
+    .map((line) => {
+      const noSpaces = line.replace(/ /g, '').replace(/\r/g, '');
 
-    let result = line;
+      let result = line;
 
-    // eslint-disable-next-line consistent-return
-    thingsToReplaceAfterTypescript.forEach(([target, replacement]) => {
-      if (target === noSpaces) {
-        // eslint-disable-next-line no-return-assign
-        return result = replacement;
-      }
-    });
+      // eslint-disable-next-line consistent-return
+      thingsToReplaceAfterTypescript.forEach(([target, replacement]) => {
+        // console.log(target);
+        if (target === noSpaces) {
+          // eslint-disable-next-line no-return-assign
+          return (result = replacement);
+        }
+      });
 
-    return result;
-  }).join('\n');
+      return result;
+    })
+    .join('\n');
 
   return replacedJavascript.replace(
     'Object.defineProperty(exports, "__esModule", { value: true });',
