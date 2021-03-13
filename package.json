@@ -22,10 +22,10 @@
     "eslint-plugin-import": "^2.22.1"
   },
   "dependencies": {
+    "@mikemcbride/dad-jokes": "^1.0.0",
     "chokidar": "^3.5.1",
     "colors": "^1.4.0",
     "execa": "^5.0.0",
-    "inspirational-quotes": "^1.0.8",
     "listr": "^0.14.3",
     "node-emoji": "^1.10.0",
     "randomstring": "^1.1.5",

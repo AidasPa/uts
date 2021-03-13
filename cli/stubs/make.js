@@ -1,6 +1,6 @@
 const fs = require('fs').promises;
 const colors = require('colors');
-const Quote = require('inspirational-quotes');
+const dadJokes = require('@mikemcbride/dad-jokes');
 const utils = require('../../utils');
 const cli = require('../cli');
 
@@ -19,7 +19,7 @@ module.exports = async (stubName, argArray, filePath, skipSrc = false) => {
   });
 
   computedStub = computedStub
-    .replace('__QUOTE__', Quote.getRandomQuote())
+    .replace('__QUOTE__', dadJokes.random())
     .replace('__ROOTPATH__', utils.calculateRootPath(finalPath));
 
   try {
