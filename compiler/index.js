@@ -106,7 +106,7 @@ module.exports = (code) => {
         constructorLine,
       ),
     ),
-    firstClassReferenceLine + 1,
+    firstClassReferenceLine + 1 + propertyBag.length,
     className,
   );
   classHash = newClassHash;

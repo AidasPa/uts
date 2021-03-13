@@ -46,7 +46,7 @@ module.exports = {
       additionalArguments = event;
     }
 
-    const cleanMethodName = methodName.replace(/'/g, '');
+    const cleanMethodName = methodName.replace(/'/g, '').replace(/"/g, '');
 
     const replaceWhat = result.replace(/ /g, '');
     result = result.replace(')', `) /*${bindType}[${cleanMethodName}, ${additionalArguments}]*/`);
@@ -134,7 +134,7 @@ module.exports = {
     for (let index = constructorLine; index > 0; index -= 1) {
       const element = codeArray[index];
       if (
-        element.startsWith('class')
+        (element.startsWith('class') || element.startsWith('abstract'))
         && this.isDecorator(codeArray[index - 1])
       ) {
         shouldReplace = true;
