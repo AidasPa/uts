@@ -1,6 +1,6 @@
 {
   "name": "@aidaspa/uts",
-  "version": "0.14.3",
+  "version": "0.15.0",
   "description": "UnrealJS + TypeScript Toolkit",
   "main": "index.js",
   "keywords": [
