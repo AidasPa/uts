@@ -1,8 +1,7 @@
 # UTS
 > Simple toolkit for working with TS and UnrealJS
 
-
-https://www.npmjs.com/package/@aidaspa/uts
+![CLI Gif](https://i.ibb.co/CvWKHQL/uts.gif)
 
 ## Installation :mailbox:
 `npm i -g @aidaspa/uts`
