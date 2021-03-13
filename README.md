@@ -59,7 +59,7 @@ This will watch all `.ts` and `.u.ts` files under `src/` and compile them to `ou
 - `@UFUNCTION(...args)` Tells the compiler that the decorated method is an RPC. `...args`: `Reliable | Unreliable`, `Server | Client | NetMulticast`
 
 ## Examples :speech_balloon:
-Here's a [link](https://gist.github.com/AidasPa/c730ae2007aad7f5591c5bab907503f5) to a gist containing code required to re-create the third person character in `.u.ts`: 
+Here's a [link](https://gist.github.com/AidasPa/ce857725a6e64c5179d249f897bcbe84) to a gist containing code required to re-create the third person character in `.u.ts`: 
 
 ## Support, Feedback and Contributions :heart:
 Having an issue? Feel free to open one here.  
