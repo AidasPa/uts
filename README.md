@@ -58,6 +58,9 @@ This will watch all `.ts` and `.u.ts` files under `src/` and compile them to `ou
 - `@KEYBIND(type: BindAction, action: string, event: IE_RELEASED | IE_PRESSED)`
 - `@UFUNCTION` TODO ...
 
+## Examples :speech_balloon:
+Here's a [link](https://gist.github.com/AidasPa/c730ae2007aad7f5591c5bab907503f5) to a gist containing code required to re-create the third person character in `.u.ts`: 
+
 ## Support, Feedback and Contributions :heart:
 Having an issue? Feel free to open one here.  
 Want to contribute? PRs are always welcome no matter how big.
