@@ -22,7 +22,7 @@ This package was built in order to help ease the development with UnrealJS - no 
 - [x] `.u.ts` file extension
 - [x] File Watcher
 - [x] CLI
-- [ ] `@UFUNCTION` Support
+- [x] `@UFUNCTION` Support
 - [ ] Use Babel to compile `.u.ts`
 - [ ] CLI Template generation (third person, first person etc..)
 
