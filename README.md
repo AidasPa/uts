@@ -56,7 +56,7 @@ This will watch all `.ts` and `.u.ts` files under `src/` and compile them to `ou
 - `@UPROPERTY(Arg1)` Just like in c++, can accept, as of right now, only one argument: `EditAnywhere` or `VisibleAnywhere`. Declared above class fields/properties.
 - `@KEYBIND(type: BindAxis, action: string)` Creates a keybinding for a method, action is your UE4 configured keybinding.
 - `@KEYBIND(type: BindAction, action: string, event: IE_RELEASED | IE_PRESSED)`
-- `@UFUNCTION` TODO ...
+- `@UFUNCTION(...args)` Tells the compiler that the decorated method is an RPC. `...args`: `Reliable | Unreliable`, `Server | Client | NetMulticast`
 
 ## Examples :speech_balloon:
 Here's a [link](https://gist.github.com/AidasPa/c730ae2007aad7f5591c5bab907503f5) to a gist containing code required to re-create the third person character in `.u.ts`: 
