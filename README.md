@@ -1,10 +1,16 @@
 # UTS
+![npm](https://img.shields.io/npm/dw/@aidaspa/uts)
+![GitHub package.json version](https://img.shields.io/github/package-json/v/aidaspa/uts)
 > Simple toolkit for working with TS and UnrealJS
 
 ![CLI Gif](https://i.ibb.co/CvWKHQL/uts.gif)
 
 ## Installation :mailbox:
 `npm i -g @aidaspa/uts`
+
+Or if you always want the latest version without installing
+
+`npx @aidaspa/uts`
 
 ## Why :question:
 This package was built in order to help ease the development with UnrealJS - no weird class compilations, full typescript support, custom extension to support decorations (or the so called "macros") and a CLI tool to generate some boilerplate.
