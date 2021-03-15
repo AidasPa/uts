@@ -13,10 +13,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/AidasPa/uts"
-  },
+  "repository": "https://github.com/AidasPa/uts",
   "bin": "index.js",
   "author": "Aidas P",
   "license": "ISC",
