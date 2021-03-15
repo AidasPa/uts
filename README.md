@@ -14,7 +14,7 @@ Or if you always want the latest version without installing
 
 ## Upgrade to 1.0.0 :star2:
 
-If you didn't use `npx`, please update to the latest version by running `npm -g @aidaspa/uts` again.
+If you didn't use `npx`, please update to the latest version by running `npm i -g @aidaspa/uts` again.
 
 This major release introduces a custom written babel plugin - [babel-plugin-uts](https://github.com/AidasPa/babel-plugin-uts)
 
