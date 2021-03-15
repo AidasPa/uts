@@ -80,4 +80,4 @@ Here's a [link](https://gist.github.com/AidasPa/ce857725a6e64c5179d249f897bcbe84
 
 ## Support, Feedback and Contributions :heart:
 Having an issue? Feel free to open one here.  
-Want to contribute? PRs are always welcome no matter how big.
+Want to contribute? PRs are always welcome no matter how big, but please make sure you follow linter rules defined in [.eslintrc.js](https://github.com/AidasPa/uts/blob/master/.eslintrc.js)
