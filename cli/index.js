@@ -1,6 +1,11 @@
 const actions = require('./actions');
+const cli = require('./cli');
 
 module.exports = (command) => {
   const [action, ...args] = command;
-  actions[action](...args);
+  try {
+    actions[action](...args);
+  } catch (error) {
+    cli.error('Command not found!');
+  }
 };
