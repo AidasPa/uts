@@ -12,6 +12,18 @@ Or if you always want the latest version without installing
 
 `npx @aidaspa/uts`
 
+## Upgrade to 1.0.0 :star2:
+
+If you didn't use `npx`, please update to the latest version by running `npm -g @aidaspa/uts` again.
+
+This major release introduces a custom written babel plugin - [babel-plugin-uts](https://github.com/AidasPa/babel-plugin-uts)
+
+In order to upgrade you simply need to run the `init` command again. This will install additional packages and create a `.babelrc` file as required for babel.
+
+**A breaking change: replace all `export = {export}` with `export default {export}`**
+
+Full list of changes can be seen in the release notes.
+
 ## Why :question:
 This package was built in order to help ease the development with UnrealJS - no weird class compilations, full typescript support, custom extension to support decorations (or the so called "macros") and a CLI tool to generate some boilerplate.
 
@@ -28,7 +40,7 @@ This package was built in order to help ease the development with UnrealJS - no 
 - [x] File Watcher
 - [x] CLI
 - [x] `@UFUNCTION` Support
-- [ ] Use Babel to compile `.u.ts`
+- [x] Use Babel to compile `.u.ts`
 - [ ] CLI Template generation (third person, first person etc..)
 
 ## The CLI :computer:
@@ -50,9 +62,9 @@ Whenever you want to generate a `.u.ts` file you can run one of the following:
 Where `{ClassName}` can also include forward-slashes (`/`) to specify a directory.
 
 ### Compiling source code :eyes:
-After initializing the project you should fire up the file watcher with:
+After initializing the project you should fire up the babel file watcher with:
 
-> `uts watch`
+> `yarn run watch`
 
 This will watch all `.ts` and `.u.ts` files under `src/` and compile them to `out/`.
 
