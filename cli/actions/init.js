@@ -35,7 +35,7 @@ module.exports = async () => {
 
   const tasks = new Listr([
     {
-      title: 'Initialize yarn project',
+      title: 'Initialize Tarn project',
       task: (ctx, task) => execa('yarn init -y')
         .catch(() => {
           ctx.yarn = false;
@@ -45,7 +45,7 @@ module.exports = async () => {
     },
     {
       title: 'Install package dependencies with Yarn',
-      task: (ctx, task) => execa('yarn add @types/node')
+      task: (ctx, task) => execa('yarn add @types/node @babel/cli @babel/core @aidaspa/babel-plugin-uts @babel/plugin-proposal-decorators @babel/preset-env @babel/preset-typescript')
         .catch(() => {
           ctx.yarn = false;
 
@@ -53,7 +53,7 @@ module.exports = async () => {
         }),
     },
     {
-      title: 'Initialize typescript configuration',
+      title: 'Initialize Typescript configuration',
       task: (ctx) => execa('npx tsc --init -experimentalDecorators true --target es6')
         .catch(() => {
           ctx.tsc = false;
@@ -62,6 +62,7 @@ module.exports = async () => {
   ]);
 
   await make('.gitignore', [], '.gitignore', true);
+  await make('.babelrc', [], '.gitignore', true);
 
   await tasks.run();
   cli.utsInitialized();
