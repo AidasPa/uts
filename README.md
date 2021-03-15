@@ -29,8 +29,8 @@ This package was built in order to help ease the development with UnrealJS - no 
 
 ## Philosophy :dizzy:
 - There are 2 folders: `out/` and `src/`. All source code lives in the `src/` directory, while the compiled code lives strictly in the `out/` directory - you should be targeting them when working with the `Javascript` Component in UE4. The folder structure inside the `out/` directory is always reflected from the `src/`
-- There are 2 extensions: `.u.ts` & `.ts`. The `.u.ts` extension contains any code that interfaces with the `UnrealJS` API. It is separated because of the differences when compiling normal TypeScript and this mess. Both file extensions are always compiled down to `.js` in the `out/` dir.
-- `.u.ts` decorators. This toolkit utilizes typescript decorators to annotate classes, properties and methods: `@UCLASS()`, `@UPROPERTY()`, `@KEYBIND()`. If you've done any c++ development with unreal before, you should be familiar with these.
+- There are 2 extensions: `.u.ts` & `.ts`. The `.u.ts` extension contains any code that interfaces with the `UnrealJS` API. It is separated because of the differences when compiling normal TypeScript and this mess. Both file extensions are always compiled down to `.js` (`.u.js`) in the `out/` dir.
+- `.u.ts` decorators. This toolkit utilizes typescript decorators to annotate classes, properties and methods: `@UCLASS()`, `@UPROPERTY()`, `@KEYBIND()`. If you've done any c++ development with unreal before, you should be familiar with some of these.
 - Boilerplates. All `.u.ts` are preferred to be generated via the CLI.
 - Any UnrealJS related class declaration must have a `@UCLASS` decorator specified - otherwise the `.u.ts` compiler will ignore it.
 
