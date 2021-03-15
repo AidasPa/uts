@@ -1,24 +1,27 @@
-type UPROPERTYParam = null;
-type UFUNCTIONParam = null;
-type KEYBINDParam = 0 | 1;
+/* UPROPERTY types */
+declare const EditAnywhere;
+declare const VisibleAnywhere;
 
-declare const EditAnywhere: UPROPERTYParam;
-declare const VisibleAnywhere: UPROPERTYParam;
+/* UCLASS types */
+declare const BlueprintComponent;
 
-declare const BindAxis: KEYBINDParam = 0;
-declare const BindAction: KEYBINDParam = 1;
-declare const IE_PRESSED: KEYBINDParam = 0;
-declare const IE_RELEASED: KEYBINDParam = 1;
+/* KEYBIND types */
+declare const BindAxis;
+declare const BindAction;
+declare const IE_PRESSED;
+declare const IE_RELEASED;
 
-declare const Server: UFUNCTIONParam;
-declare const Client: UFUNCTIONParam;
-declare const Reliable: UFUNCTIONParam;
-declare const Unreliable: UFUNCTIONParam;
-declare const NetMulticast: UFUNCTIONParam;
+/* UFUNCTION types */
+declare const Server;
+declare const Client;
+declare const Reliable;
+declare const Unreliable;
+declare const NetMulticast;
 
-declare const UCLASS = (): Function => (): void => {};
-declare const UPROPERTY = (...args: UPROPERTYParam[]): Function => (): void => {};
-declare const UFUNCTION = (...args: UFUNCTIONParam[]): Function => (): void => {};
-declare const KEYBIND = (type: KEYBINDParam, action: string, event: ?KEYBINDParam = 0): Function => (): void => {};
+/* DECORATOR types */
+declare const UCLASS = (...args: null[]): Function => (): void => {};
+declare const UPROPERTY = (...args: null[]): Function => (): void => {};
+declare const UFUNCTION = (...args: null[]): Function => (): void => {};
+declare const KEYBIND = (type: null, action: string, event?: null): Function => (): void => {};
 
-declare type float = number;
+
