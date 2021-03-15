@@ -69,7 +69,7 @@ After initializing the project you should fire up the babel file watcher with:
 This will watch all `.ts` and `.u.ts` files under `src/` and compile them to `out/`.
 
 ## Decorator Documentation :book:
-- `@UCLASS()` Shows the compiler which classes it should touch, it is **required** for all `.u.ts` classes in order to compile properly. Declared above a class declaration.
+- `@UCLASS(BlueprintComponent?)` Shows the compiler which classes it should touch, it is **required** for all `.u.ts` classes in order to compile properly. Declared above a class declaration. The `BlueprintComponent` argument tells the compiler that this file should be loaded from UE4. Not required, but what this does is it cleans the code up a little bit.
 - `@UPROPERTY(Arg1)` Just like in c++, can accept, as of right now, only one argument: `EditAnywhere` or `VisibleAnywhere`. Declared above class fields/properties.
 - `@KEYBIND(type: BindAxis, action: string)` Creates a keybinding for a method, action is your UE4 configured keybinding.
 - `@KEYBIND(type: BindAction, action: string, event: IE_RELEASED | IE_PRESSED)`

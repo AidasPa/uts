@@ -14,11 +14,4 @@ class __CLASSNAME__ extends Actor
   }
 }
 
-// NOTE: If you're going to be targetting this file directly via the editor, you are not allowed to export things.
-// Seems like nothing breaks apart from the scary error message.
-
-new __CLASSNAME__(GWorld);
-
-// However, if this is a class you're going to be extending, then feel free to export it and remove the new instance
-
-// export default __CLASSNAME__;
+export default __CLASSNAME__;
