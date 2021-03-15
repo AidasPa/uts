@@ -12,7 +12,7 @@ Or if you always want the latest version without installing
 
 `npx @aidaspa/uts`
 
-## Upgrade to 1.0.0 :star2:
+## Upgrade to >= 1.0.0 :star2:
 
 If you didn't use `npx`, please update to the latest version by running `npm i -g @aidaspa/uts` again.
 
