@@ -1,6 +1,7 @@
 # UTS
 ![npm](https://img.shields.io/npm/dw/@aidaspa/uts)
 ![GitHub package.json version](https://img.shields.io/github/package-json/v/aidaspa/uts)
+![Discord](https://img.shields.io/discord/875417341356286054)
 > Simple toolkit for working with TS and UnrealJS
 
 ![CLI Gif](https://i.ibb.co/CvWKHQL/uts.gif)
